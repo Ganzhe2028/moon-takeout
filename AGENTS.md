@@ -1,171 +1,145 @@
 # AGENTS.md - Moon Takeout
 
-> Agentic coding guide for Moon Takeout - a student group delivery mobile web app.
+**Generated:** 2026-01-22  
+**Commit:** bfef626  
+**Branch:** main
 
-## PROJECT OVERVIEW
+> Student group delivery mobile web app. Aggregate orders to save delivery fees.
 
-**Type**: Mobile-first web app (React/Next.js)  
-**Purpose**: Aggregate student food orders to save delivery fees  
-**Design**: Linear/Airbnb aesthetic - clean, minimalist, elegant  
-**Status**: Greenfield - build from PRD.md specifications
+## OVERVIEW
+
+Mobile-first Next.js 14 demo app with Lobby (join group orders) and Success (impact visualization) views. React 18, TypeScript strict, Tailwind CSS, Framer Motion animations.
+
+## STRUCTURE
+
+```
+moon-takeout/
+├── app/                    # Next.js App Router
+│   ├── layout.tsx          # Root layout (Inter font, zh-CN)
+│   ├── page.tsx            # Home - toggles Lobby/Success views
+│   └── globals.css         # Tailwind base + custom styles
+├── components/
+│   ├── ui/                 # Primitives: Button, Card, Badge, Progress
+│   ├── lobby/              # Lobby view components
+│   └── success/            # Success page components
+├── lib/
+│   ├── utils.ts            # cn(), generateSavings(), formatCurrency()
+│   └── constants.ts        # MOCK_FOOD_VANS, TABS
+├── types/                  # FoodVan, TabFilter interfaces
+├── public/                 # Static assets
+├── PRD.md                  # Product requirements (source of truth)
+└── LOGO.jpeg               # ⚠️ Should be in public/
+```
+
+## WHERE TO LOOK
+
+| Task | Location | Notes |
+|------|----------|-------|
+| Add new route | `app/` | Currently no /success route (views toggled in page.tsx) |
+| Add UI primitive | `components/ui/` | Button, Card, Badge, Progress available |
+| Add feature component | `components/{feature}/` | Use index.tsx as barrel export |
+| Mock data | `lib/constants.ts` | MOCK_FOOD_VANS array |
+| Types | `types/index.ts` | FoodVan, TabFilter |
+| Utility functions | `lib/utils.ts` | cn, generateSavings, formatCurrency |
+
+## COMMANDS
+
+```bash
+pnpm dev          # Start dev server (localhost:3000)
+pnpm build        # Production build
+pnpm lint         # ESLint (next/core-web-vitals)
+pnpm type-check   # tsc --noEmit
+```
 
 ## TECH STACK
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Next.js 14+ (App Router) |
-| Language | TypeScript (strict mode) |
-| Styling | Tailwind CSS |
-| Animation | Framer Motion |
+| Framework | Next.js 14.2.5 (App Router) |
+| Language | TypeScript 5 (strict mode) |
+| Styling | Tailwind CSS 3.4 |
+| Animation | Framer Motion 11 |
 | Icons | Lucide React |
-| Package Manager | pnpm (preferred) or npm |
-
-## COMMANDS
-
-```bash
-# Development
-pnpm dev              # Start dev server (localhost:3000)
-pnpm build            # Production build
-pnpm lint             # Run ESLint
-pnpm type-check       # TypeScript check (tsc --noEmit)
-
-# Testing
-pnpm test             # Run all tests
-pnpm test:watch       # Watch mode
-pnpm test -- --grep "test name"   # Run single test by name
-pnpm test path/to/file.test.ts    # Run single test file
-
-# Formatting
-pnpm format           # Prettier format all
-```
-
-## PROJECT STRUCTURE
-
-```
-moon-takeout/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Home/Lobby view
-│   ├── success/page.tsx    # Success & Impact page
-│   └── globals.css         # Global styles + Tailwind
-├── components/
-│   ├── ui/                 # Reusable primitives (Button, Card, Badge)
-│   ├── lobby/              # Lobby-specific components
-│   └── success/            # Success page components
-├── lib/
-│   ├── utils.ts            # Utility functions (cn, generateSavings)
-│   └── constants.ts        # App constants, mock data
-├── hooks/                  # Custom React hooks
-├── types/                  # TypeScript type definitions
-└── public/                 # Static assets (LOGO.jpeg)
-```
+| Utils | clsx + tailwind-merge |
 
 ## CODE STYLE
 
 ### TypeScript
-- **Strict mode**: Always enabled, no `any` types
-- **Explicit return types**: Required for exported functions
-- **Interface over type**: Prefer `interface` for object shapes
-- **Naming**: PascalCase components, camelCase functions/variables, SCREAMING_SNAKE constants
+- Strict mode enabled, no `any`
+- Explicit return types on exports
+- Interface over type for objects
+- PascalCase components, camelCase functions, SCREAMING_SNAKE constants
 
 ### Imports Order
-React/Next → external libs → internal absolute (`@/`) → relative → types
-
-```typescript
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { FoodVanCard } from './food-van-card';
-import type { FoodVan } from '@/types';
-```
+React/Next → external libs → `@/` internal → relative → types
 
 ### Components
-- **Functional only**: No class components
-- **Named exports**: Prefer named over default exports
-- **Props interface**: Define above component, suffix with `Props`
+- Functional only, named exports
+- Props interface above component, suffix `Props`
+- Barrel exports via `index.tsx`
 
-```typescript
-interface FoodVanCardProps {
-  van: FoodVan;
-  onJoin: (id: string) => void;
-}
+### Tailwind
+- Use tokens, avoid `[arbitrary]` values
+- Mobile-first: no prefix = mobile, `md:` `lg:` for larger
+- Generous spacing: `p-6`, `p-8`
+- Borders: `rounded-xl`, `border-gray-200`
 
-export function FoodVanCard({ van, onJoin }: FoodVanCardProps) {
-  // ...
-}
-```
+## DESIGN SYSTEM
 
-### Tailwind CSS
-- **Design tokens**: Use Tailwind classes, avoid arbitrary values `[13px]`
-- **Responsive**: Mobile-first (`md:`, `lg:` for larger screens)
-- **Spacing**: Generous padding (p-6, p-8), don't clutter
-- **Borders**: `rounded-xl` or `rounded-2xl`, subtle `border-gray-200`
-
-### Error Handling
-- Never ignore errors: Always handle or propagate
-- User-friendly messages: Chinese + English for user-facing
-- Toast notifications for user feedback
-
-## DESIGN SYSTEM (from PRD)
-
-### Colors
 | Purpose | Class |
 |---------|-------|
 | Primary | `bg-indigo-600`, `text-indigo-600` |
-| Success | `bg-green-600`, `text-green-500` (muted) |
+| Success | `bg-green-600`, `text-green-500` |
 | Background | `bg-white`, `bg-gray-50` |
 | Border | `border-gray-200` |
 | Urgent | `text-red-500` |
 
-### Components
-- Cards: `rounded-xl shadow-sm border border-gray-200 p-6`
-- Buttons: Clear, elegant, sufficient padding
-- Progress: Visual progress bar or avatar stack for "3/5 joined"
-- Badges: Premium look (`rounded-full px-3 py-1`)
-- Typography: Inter font, large hero numbers, subtle metadata
+Cards: `rounded-xl shadow-sm border border-gray-200 p-6`  
+Badges: `rounded-full px-3 py-1`  
+Typography: Inter font, large hero numbers
 
 ## ANTI-PATTERNS
 
 Do NOT:
-- Use `any` type or `@ts-ignore`
-- Use CSS modules or styled-components (Tailwind only)
-- Create class components
+- Use `any`, `@ts-ignore`, `@ts-expect-error`
+- Use CSS modules or styled-components
+- Use class components
+- Use `var` (use `const`/`let`)
+- Commit `console.log` (except `console.error`)
+- Use default exports for components
 - Use arbitrary Tailwind values when tokens exist
 - Skip error handling in async operations
-- Use `var` (use `const`/`let`)
-- Commit `console.log` statements (except errors)
-- Use default exports for components
 
-## TESTING
+## KNOWN ISSUES (Fix These)
 
-Framework: Vitest + React Testing Library
+| Issue | Location | Fix |
+|-------|----------|-----|
+| Debug console.log | `components/lobby/index.tsx:33` | Remove or replace with toast |
+| console.log in catch | `components/success/index.tsx:31` | Change to console.error |
+| Misplaced asset | `LOGO.jpeg` in root | Move to `public/` |
 
-```typescript
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { FoodVanCard } from './food-van-card';
+## MISSING (Documented but not implemented)
 
-describe('FoodVanCard', () => {
-  it('calls onJoin when button clicked', async () => {
-    const onJoin = vi.fn();
-    render(<FoodVanCard van={mockVan} onJoin={onJoin} />);
-    await userEvent.click(screen.getByRole('button', { name: /join/i }));
-    expect(onJoin).toHaveBeenCalledWith(mockVan.id);
-  });
-});
-```
+| Item | Status |
+|------|--------|
+| `hooks/` directory | Not created |
+| `app/success/page.tsx` route | Views toggled in page.tsx instead |
+| Vitest + Testing Library | Not installed |
+| Prettier | Not installed |
+| `pnpm test` script | Not available |
+| `pnpm format` script | Not available |
+| CI/CD pipeline | None configured |
 
 ## KEY FEATURES
 
 1. **Lobby View** (`/`): List of "Food Vans" with join functionality
-2. **Success View** (`/success`): Post-payment impact visualization
-3. **generateSavings()**: Mock function per PRD specs
+2. **Success View**: Post-payment impact visualization (toggled, not routed)
+3. **generateSavings()**: Mock savings per PRD specs
 
 ## NOTES
 
-- Mobile-first: Design for 375px viewport, scale up
-- Bilingual: Support Chinese/English strings (Chinese primary)
-- Demo mode: No backend, use mock data and localStorage
-- Animations: Use Framer Motion for transitions and micro-interactions
-
-Refer to `PRD.md` for complete requirements and copy/UI strings.
+- **Demo mode**: No backend, mock data + localStorage
+- **Bilingual**: Chinese primary, English secondary
+- **Mobile-first**: Design for 375px, scale up
+- **View toggling**: Success view toggled in page.tsx, not separate route
+- Refer to `PRD.md` for complete requirements and copy strings

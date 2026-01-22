@@ -1,14 +1,15 @@
 # AGENTS.md - Moon Takeout
 
-**Generated:** 2026-01-22  
-**Commit:** bfef626  
+**Generated:** 2026-01-22
+**Updated:** 2026-01-22
+**Commit:** bfef626
 **Branch:** main
 
 > Student group delivery mobile web app. Aggregate orders to save delivery fees.
 
 ## OVERVIEW
 
-Mobile-first Next.js 14 demo app with Lobby (join group orders) and Success (impact visualization) views. React 18, TypeScript strict, Tailwind CSS, Framer Motion animations.
+Mobile-first Next.js 16 demo app with Lobby (join group orders) and Success (impact visualization) views. React 19, TypeScript strict, Tailwind CSS, Framer Motion animations.
 
 ## STRUCTURE
 
@@ -27,8 +28,8 @@ moon-takeout/
 │   └── constants.ts        # MOCK_FOOD_VANS, TABS
 ├── types/                  # FoodVan, TabFilter interfaces
 ├── public/                 # Static assets
+│   └── LOGO.jpeg           # App logo
 ├── PRD.md                  # Product requirements (source of truth)
-└── LOGO.jpeg               # ⚠️ Should be in public/
 ```
 
 ## WHERE TO LOOK
@@ -55,7 +56,7 @@ pnpm type-check   # tsc --noEmit
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Next.js 14.2.5 (App Router) |
+| Framework | Next.js 16.1.4 (App Router) |
 | Language | TypeScript 5 (strict mode) |
 | Styling | Tailwind CSS 3.4 |
 | Animation | Framer Motion 11 |
@@ -114,9 +115,7 @@ Do NOT:
 
 | Issue | Location | Fix |
 |-------|----------|-----|
-| Debug console.log | `components/lobby/index.tsx:33` | Remove or replace with toast |
-| console.log in catch | `components/success/index.tsx:31` | Change to console.error |
-| Misplaced asset | `LOGO.jpeg` in root | Move to `public/` |
+| None | - | - |
 
 ## MISSING (Documented but not implemented)
 

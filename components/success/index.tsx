@@ -27,8 +27,8 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
         title: 'Moon Takeout Savings',
         text: `我在 Moon Takeout 省了 ${savings ? formatCurrency(savings.userSaved) : ''}！`,
         url: window.location.href,
-      }).catch(() => {
-        console.log('Share cancelled');
+      }).catch((error) => {
+        console.error('Share failed', error);
       });
     } else {
       alert('分享成功！/ Share successful!');

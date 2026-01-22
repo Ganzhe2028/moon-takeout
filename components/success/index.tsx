@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Trophy, Home, Share2 } from 'lucide-react';
 
@@ -15,21 +15,33 @@ interface SuccessPageProps {
 }
 
 export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElement {
-  const [savings] = useState<SavingsData>(() => generateSavings());
+  const [savings, setSavings] = useState<SavingsData | null>(null);
+
+  useEffect(() => {
+    setSavings(generateSavings());
+  }, []);
 
   const handleShare = (): void => {
     if (navigator.share) {
       navigator.share({
         title: 'Moon Takeout Savings',
-        text: `我在 Moon Takeout 省了 ${formatCurrency(savings.userSaved)}！`,
+        text: `我在 Moon Takeout 省了 ${savings ? formatCurrency(savings.userSaved) : ''}！`,
         url: window.location.href,
       }).catch(() => {
-        console.error('Share cancelled');
+        console.log('Share cancelled');
       });
     } else {
       alert('分享成功！/ Share successful!');
     }
   };
+
+  if (!savings) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

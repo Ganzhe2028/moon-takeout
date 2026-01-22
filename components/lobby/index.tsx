@@ -30,7 +30,6 @@ export function Lobby({ onJoinSuccess }: LobbyProps): React.ReactElement {
   const handleJoin = (vanId: string): void => {
     const van = MOCK_FOOD_VANS.find((v) => v.id === vanId);
     if (van) {
-      console.log(`Joined van: ${van.name}`);
       onJoinSuccess();
     }
   };

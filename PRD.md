@@ -1,4 +1,4 @@
-Project: Moon Takeout (Mobile Web App Demo) Tech Stack: React (Next.js), Tailwind CSS, Framer Motion (for animations), Lucide React (icons). Design Aesthetic: Linear/Airbnb Style (Clean, Minimalist, Efficient, Elegant). Mobile-first design.
+Project: Moon Takeout (Mobile Web App Demo) Tech Stack: React (Next.js 16), Tailwind CSS, Framer Motion (for animations), Lucide React (icons). Design Aesthetic: Linear/Airbnb Style (Clean, Minimalist, Efficient, Elegant). Mobile-first design.
 
 Context
 You are building a high-fidelity frontend demo for "Moon Takeout," a student-led group delivery app for Moonshot Academy. The goal is to aggregate orders to save on delivery fees. We need two specific views:

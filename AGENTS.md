@@ -8,7 +8,7 @@
 
 ## OVERVIEW
 
-Mobile-first Next.js 14 demo app with Lobby (join group orders) and Success (impact visualization) views. React 18, TypeScript strict, Tailwind CSS, Framer Motion animations.
+Mobile-first Next.js 16 demo app with Lobby (join group orders) and Success (impact visualization) views. React 19, TypeScript strict, Tailwind CSS, Framer Motion animations.
 
 ## STRUCTURE
 
@@ -47,7 +47,7 @@ moon-takeout/
 ```bash
 pnpm dev          # Start dev server (localhost:3000)
 pnpm build        # Production build
-pnpm lint         # ESLint (next/core-web-vitals)
+pnpm lint         # ESLint (runs `eslint .`)
 pnpm type-check   # tsc --noEmit
 ```
 
@@ -55,7 +55,7 @@ pnpm type-check   # tsc --noEmit
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Next.js 14.2.5 (App Router) |
+| Framework | Next.js 16.1.4 (App Router) |
 | Language | TypeScript 5 (strict mode) |
 | Styling | Tailwind CSS 3.4 |
 | Animation | Framer Motion 11 |
@@ -117,6 +117,7 @@ Do NOT:
 | Debug console.log | `components/lobby/index.tsx:33` | Remove or replace with toast |
 | console.log in catch | `components/success/index.tsx:31` | Change to console.error |
 | Misplaced asset | `LOGO.jpeg` in root | Move to `public/` |
+| ESLint Config | `package.json` | Using `eslint@8` with `eslint-config-next@15` to resolve ESLint 9 circular dep errors with Next 16 config |
 
 ## MISSING (Documented but not implemented)
 

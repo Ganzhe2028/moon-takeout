@@ -87,7 +87,7 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
                 <span className="font-semibold text-indigo-600">
                   {savings.pinhaofanEquivalent}
                 </span>{' '}
-                budget meals
+                Pinhao meal
               </p>
             </div>
           </Card>

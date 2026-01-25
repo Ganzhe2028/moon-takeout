@@ -68,7 +68,6 @@ export function Lobby({ onJoinSuccess }: LobbyProps): React.ReactElement {
               className="text-center py-12 text-gray-500"
             >
               <p>No vans available in this category</p>
-              <p className="text-sm mt-1">暂无符合条件的车队</p>
             </motion.div>
           )}
         </div>

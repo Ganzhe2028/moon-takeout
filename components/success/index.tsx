@@ -25,13 +25,13 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
     if (navigator.share) {
       navigator.share({
         title: 'Moon Takeout Savings',
-        text: `我在 Moon Takeout 省了 ${savings ? formatCurrency(savings.userSaved) : ''}！`,
+        text: `I saved ${savings ? formatCurrency(savings.userSaved) : ''} on Moon Takeout!`,
         url: window.location.href,
       }).catch((error) => {
         console.error('Share failed', error);
       });
     } else {
-      alert('分享成功！/ Share successful!');
+      alert('Share successful!');
     }
   };
 
@@ -64,7 +64,6 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
           className="text-center mb-8"
         >
           <h1 className="text-2xl font-bold text-gray-900">Payment Successful</h1>
-          <p className="text-lg text-gray-500 mt-1">支付成功</p>
         </motion.div>
 
         <motion.div
@@ -74,7 +73,7 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
         >
           <Card className="bg-gradient-to-br from-indigo-50 to-white border-indigo-100 mb-4">
             <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2">本次拼团为你节省了</p>
+              <p className="text-sm text-gray-600 mb-2">You saved</p>
               <motion.p
                 initial={{ scale: 0.5 }}
                 animate={{ scale: 1 }}
@@ -84,11 +83,11 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
                 {formatCurrency(savings.userSaved)}
               </motion.p>
               <p className="text-sm text-gray-500">
-                相当于省下了{' '}
+                Equivalent to{' '}
                 <span className="font-semibold text-indigo-600">
                   {savings.pinhaofanEquivalent}
                 </span>{' '}
-                次拼好饭
+                budget meals
               </p>
             </div>
           </Card>
@@ -102,14 +101,14 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
           <Card className="mb-4">
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">全车共省</span>
+                <span className="text-gray-600">Team Saved</span>
                 <span className="text-xl font-semibold text-gray-900">
                   {formatCurrency(savings.teamSaved)}
                 </span>
               </div>
               <div className="border-t border-gray-100" />
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">本学期全校累计节省</span>
+                <span className="text-gray-600">School Total Saved</span>
                 <span className="text-xl font-semibold text-green-600">
                   {formatCurrency(savings.schoolTotal)}
                 </span>
@@ -133,7 +132,7 @@ export function SuccessPage({ onBackHome }: SuccessPageProps): React.ReactElemen
                   Achievement Unlocked
                 </p>
                 <p className="text-lg font-semibold text-gray-900">
-                  🏆 达成成就：善及万物
+                  🏆 Achievement: Benevolence to All
                 </p>
                 <p className="text-sm text-gray-500">Benevolence to all things</p>
               </div>

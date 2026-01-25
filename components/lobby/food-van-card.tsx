@@ -21,9 +21,9 @@ export function FoodVanCard({ van, onJoin }: FoodVanCardProps): React.ReactEleme
   const isAlmostFull = van.currentMembers >= van.maxMembers - 1;
 
   const getBadgeVariant = (): 'default' | 'success' | 'warning' | 'urgent' => {
-    if (van.tag === '即将截单') return 'urgent';
-    if (van.tag === '即将成团') return 'success';
-    if (van.tag === '新开团') return 'warning';
+    if (van.tag === 'Closing Soon') return 'urgent';
+    if (van.tag === 'Almost Full') return 'success';
+    if (van.tag === 'New Group') return 'warning';
     return 'default';
   };
 
@@ -67,7 +67,7 @@ export function FoodVanCard({ van, onJoin }: FoodVanCardProps): React.ReactEleme
             className="w-full"
             variant={isAlmostFull ? 'primary' : 'secondary'}
           >
-            Join / 上车
+            Join Group
           </Button>
         </div>
       </Card>
